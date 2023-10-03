@@ -2,9 +2,18 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
-  const [type, setType] = useState('income');
+  const [statement, setStatement] = useState({
+    title: '',
+    amount: '',
+    type: ''
+  });
+
+  const handleInputUpdate = (e) => {
+    setStatement({
+      ...statement,
+      [e.target.name]: [e.target.value]
+    });
+  };
 
   return (
     <main>
@@ -15,26 +24,20 @@ function App() {
             type="text"
             name="title"
             placeholder="Title"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            value={title}
+            onChange={handleInputUpdate}
+            value={statement.title}
           />
           <input
             type="number"
             name="amount"
             placeholder="Amount"
-            onClick={(e) => {
-              setAmount(e.target.value);
-            }}
-            value={amount}
+            onChange={handleInputUpdate}
+            value={statement.amount}
           />
           <select
             name="type"
-            onChange={(e) => {
-              setType(e.target.value);
-            }}
-            value={type}
+            onChange={handleInputUpdate}
+            value={statement.type}
           >
             <option value="income">Income</option>
             <option value="expense">Expense</option>
