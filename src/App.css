@@ -15,26 +15,34 @@ main {
 }
 
 input {
-  border: none;
-  outline: none;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.32);
+  border: white;
+  outline: white;
+  border-bottom: 2px solid rgb(255 244 244 / 32%);
   width: 100%;
   margin-right: 10px;
-  padding: 5px 0;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+select {
+  padding: 5px;
 }
 
 button {
   width: 100px;
   margin-left: 10px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .card {
-  box-shadow: 0.1px 1px 3px rgba(0,0,0,0.27);
+  box-shadow: 0.7px 1px 3px rgb(215 194 194 / 27%);
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .card-info h4 {
