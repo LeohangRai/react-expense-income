@@ -8,10 +8,35 @@ function App() {
     type: ''
   });
 
+  const [validationErrors, setValidationErrors] = useState({
+    title: false,
+    amount: false
+  });
+
   const handleInputUpdate = (e) => {
     setStatement({
       ...statement,
       [e.target.name]: [e.target.value]
+    });
+  };
+
+  const addNewStatement = () => {
+    const { title, amount } = statement;
+    if (!title) {
+      return setValidationErrors({
+        title: true,
+        amount: false
+      });
+    }
+    if (!amount) {
+      return setValidationErrors({
+        title: false,
+        amount: true
+      });
+    }
+    setValidationErrors({
+      title: false,
+      amount: false
     });
   };
 
@@ -26,6 +51,7 @@ function App() {
             placeholder="Title"
             onChange={handleInputUpdate}
             value={statement.title}
+            style={validationErrors.title ? { borderColor: 'red' } : null}
           />
           <input
             type="number"
@@ -33,6 +59,7 @@ function App() {
             placeholder="Amount"
             onChange={handleInputUpdate}
             value={statement.amount}
+            style={validationErrors.amount ? { borderColor: 'red' } : null}
           />
           <select
             name="type"
@@ -42,7 +69,7 @@ function App() {
             <option value="income">Income</option>
             <option value="expense">Expense</option>
           </select>
-          <button>+</button>
+          <button onClick={addNewStatement}>+</button>
         </div>
 
         <div>
