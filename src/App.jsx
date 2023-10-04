@@ -5,8 +5,10 @@ function App() {
   const [statement, setStatement] = useState({
     title: '',
     amount: '',
-    type: ''
+    type: 'income'
   });
+
+  const [statementList, setStatementList] = useState([]);
 
   const [validationErrors, setValidationErrors] = useState({
     title: false,
@@ -38,6 +40,33 @@ function App() {
       title: false,
       amount: false
     });
+    const newStatement = {
+      ...statement,
+      date: new Date().toDateString()
+    };
+    setStatementList([...statementList, newStatement]);
+    setStatement({
+      title: '',
+      amount: '',
+      type: 'income'
+    });
+  };
+
+  const renderCards = () => {
+    return statementList.map(({ title, date, type, amount }) => (
+      <div className="card" key={date}>
+        <div className="card-info">
+          <h4>{title}</h4>
+          <p>{date}</p>
+        </div>
+        <p
+          className={`amount-text ${type === 'income' ? 'success' : 'danger'}`}
+        >
+          {type === 'income' ? '+' : '-'}
+          {`$${amount}`}
+        </p>
+      </div>
+    ));
   };
 
   return (
@@ -72,15 +101,7 @@ function App() {
           <button onClick={addNewStatement}>+</button>
         </div>
 
-        <div>
-          <div className="card">
-            <div className="card-info">
-              <h4>Salary</h4>
-              <p>July 27, 2024</p>
-            </div>
-            <p className="amount-text">+$4000</p>
-          </div>
-        </div>
+        <div>{renderCards()}</div>
       </div>
     </main>
   );
