@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
   const handleInputUpdate = (e) => {
     setStatement({
       ...statement,
-      [e.target.name]: [e.target.value]
+      [e.target.name]: e.target.value
     });
   };
 
@@ -42,6 +43,7 @@ function App() {
     });
     const newStatement = {
       ...statement,
+      id: uuidv4(),
       date: new Date().toDateString()
     };
     setStatementList([...statementList, newStatement]);
@@ -53,8 +55,8 @@ function App() {
   };
 
   const renderCards = () => {
-    return statementList.map(({ title, date, type, amount }) => (
-      <div className="card" key={date}>
+    return statementList.map(({ id, title, date, type, amount }) => (
+      <div className="card" key={id}>
         <div className="card-info">
           <h4>{title}</h4>
           <p>{date}</p>
